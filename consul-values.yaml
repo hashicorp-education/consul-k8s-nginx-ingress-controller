@@ -1,0 +1,203 @@
+global:
+  enabled: false
+  logLevel: "info"
+  logJSON: false
+  name: null
+  domain: consul
+  image: hashicorp/consul:1.14.3
+  adminPartitions:
+    enabled: false
+    name: "default"
+    service:
+      type: LoadBalancer
+      nodePort:
+        rpc: null
+        serf: null
+        https: null
+      annotations: null
+  imagePullSecrets: []
+  datacenter: dc1
+  enablePodSecurityPolicies: false
+  gossipEncryption:
+    autoGenerate: true
+  recursors: []
+  metrics:
+    enabled: true
+    enableAgentMetrics: true
+    agentMetricsRetentionTime: 1m
+    enableGatewayMetrics: true
+  consulSidecarContainer:
+    resources:
+      requests:
+        memory: "100Mi"
+        cpu: "100m"
+      limits:
+        memory: "500Mi"
+        cpu: "500m"
+  openshift:
+    enabled: false
+ui:
+  enabled: true
+  service:
+    type: LoadBalancer
+server:
+  enabled: true
+  replicas: 1
+  exposeGossipAndRPCPorts: false
+  ports:
+    serflan:
+      port: 8301
+  storage: 10Gi
+  connect: true
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "100m"
+    limits:
+      memory: "100Mi"
+      cpu: "100m"
+  securityContext:
+    runAsNonRoot: false
+    runAsGroup: 0
+    runAsUser: 0
+    fsGroup: 0
+  updatePartition: 0
+  disruptionBudget:
+    enabled: true
+client:
+  image: null
+  join: null
+  dataDirectoryHostPath: null
+  grpc: true
+  nodeMeta:
+    pod-name: ${HOSTNAME}
+    host-ip: ${HOST_IP}
+  exposeGossipPorts: true
+  serviceAccount:
+    annotations: null
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "100m"
+    limits:
+      memory: "500Mi"
+      cpu: "500m"
+  securityContext:
+    runAsNonRoot: true
+    runAsGroup: 1000
+    runAsUser: 100
+    fsGroup: 1000
+  extraVolumes: []
+  extraContainers: []
+  tolerations: |
+    - operator: Exists
+  nodeSelector: null
+  affinity: null
+  priorityClassName: ""
+  annotations: null
+  extraLabels: null
+  extraEnvironmentVars: {}
+  dnsPolicy: null
+  hostNetwork: false
+  updateStrategy: |
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  snapshotAgent:
+    enabled: false
+    replicas: 2
+    serviceAccount:
+      annotations: null
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "50m"
+      limits:
+        memory: "50Mi"
+        cpu: "50m"
+    caCert: null
+dns:
+  enabled: true
+  enableRedirection: false
+  type: ClusterIP
+  clusterIP: null
+  annotations: null
+  additionalSpec: null
+connectInject:
+  enabled: true
+  replicas: 2
+  image: null
+  default: false
+  transparentProxy:
+    defaultEnabled: true
+    defaultOverwriteProbes: true
+  metrics:
+    defaultEnabled: "-"
+    defaultEnableMerging: false
+    defaultMergedMetricsPort: 20100
+    defaultPrometheusScrapePort: 20200
+    defaultPrometheusScrapePath: "/metrics"
+  priorityClassName: ""
+  imageConsul: null
+  logLevel: info
+  serviceAccount:
+    annotations: null
+  resources:
+    requests:
+      memory: "50Mi"
+      cpu: "50m"
+    limits:
+      memory: "500Mi"
+      cpu: "150m"
+  failurePolicy: "Fail"
+  namespaceSelector: |
+    matchExpressions:
+      - key: "kubernetes.io/metadata.name"
+        operator: "NotIn"
+        values: ["kube-system","local-path-storage"]
+  k8sAllowNamespaces: ["*"]
+  k8sDenyNamespaces: []
+  consulNamespaces:
+    consulDestinationNamespace: "default"
+    mirroringK8S: false
+    mirroringK8SPrefix: ""
+  nodeSelector: null
+  affinity: null
+  tolerations: null
+  sidecarProxy:
+    resources:
+      requests:
+        memory: "100Mi"
+        cpu: "100m"
+      limits:
+        memory: "500Mi"
+        cpu: "500m"
+  initContainer:
+    resources:
+      requests:
+        memory: "25Mi"
+        cpu: "50m"
+      limits:
+        memory: "150Mi"
+        cpu: "50m"
+controller:
+  enabled: true
+  replicas: 1
+  logLevel: info
+  serviceAccount:
+    annotations: null
+  resources:
+    limits:
+      cpu: 100m
+      memory: 50Mi
+    requests:
+      cpu: 100m
+      memory: 50Mi
+  nodeSelector: null
+  tolerations: null
+  affinity: null
+  priorityClassName: ""
+webhookCertManager:
+  tolerations: null
+prometheus:
+  enabled: false

@@ -1,0 +1,10 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: allow-specific
+spec:
+  destination:
+    name: static-server
+  sources:
+    - name: ingress-nginx
+      action: allow
