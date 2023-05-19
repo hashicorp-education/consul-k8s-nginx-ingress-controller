@@ -4,7 +4,7 @@ global:
   logJSON: false
   name: null
   domain: consul
-  image: hashicorp/consul:1.14.3
+  image: hashicorp/consul:1.14.7
   adminPartitions:
     enabled: false
     name: "default"
