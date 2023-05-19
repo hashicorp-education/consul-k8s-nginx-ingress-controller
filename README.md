@@ -7,6 +7,7 @@ This example configuration deploys and configures a NGINX Ingress ([`ingress-ngi
 - Kubernetes cluster on any [cloud provider](cloud-provider-setup)
 - `kubectl` installed locally
 - `helm` installed locally
+- `jq` installed locally
 
 Once you have the requirements, follow the instructions in the [Runbook](#runbook) section to configure an NGINX ingress controller with Consul on Kubernetes
 
@@ -72,7 +73,7 @@ Consul on K8s can be deployed on any K8s distro such as EKS, GKE, and AKS. The f
 
     ```bash
     helm repo add hashicorp https://helm.releases.hashicorp.com
-    helm install consul hashicorp/consul --values consul-values.yaml --version "1.0.2" --create-namespace --namespace consul
+    helm install consul hashicorp/consul --values consul-values.yaml --version "1.0.7" --create-namespace --namespace consul
     ```
 
 2. Add deny all intention.
